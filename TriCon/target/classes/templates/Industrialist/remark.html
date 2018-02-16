@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TriCon</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="shortcut icon" href="../img/logo1.png"/>
+    <link rel="stylesheet" type="text/css"
+          href="../../css/custom.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="../../css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="../../css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="../../css/bootstrap.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css"/>
+
+
+</head>
+<body class="bgstyle">
+<div id="wrapper">
+    <div th:replace="Fragments/header :: indHeader">
+    </div>
+    <div class="row">
+        <div th:replace="Fragments/sideBar :: indSideBar">
+        </div>
+        <div class="col-xs-12 col-md-9 col-sm-12" th:if="${not #lists.isEmpty(weeklyReport)}"
+             th:each="weeklyReport:${weeklyReport}">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 customheading">
+                            Weekly Report
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                        <span>
+                            <label>From</label>
+                            <label th:text="${weeklyReport.From }"></label>
+                        </span>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                             <span>
+                                 <label>To</label>
+                                <label th:text="${weeklyReport.To }"></label>
+                             </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <span>
+                            <label class="col-xs-6 col-md-2">Monday</label>
+                            <label class="showarea col-xs-6 col-md-9" th:text="${weeklyReport.Monday }"></label>
+                          </span>
+                    <span>
+                            <label class="col-xs-6 col-md-2">Tuesday</label>
+                            <label class="showarea col-xs-6 col-md-9" th:text="${weeklyReport.Tuesday }"></label>
+                          </span>
+                    <span>
+                            <label class="col-xs-6 col-md-2">Wednesday</label>
+                            <label class="showarea col-xs-6 col-md-9" th:text="${weeklyReport.Wednesday }"></label>
+                          </span>
+                    <span>
+                            <label class="col-xs-6 col-md-2">Thursday</label>
+                            <label class="showarea col-xs-6 col-md-9" th:text="${weeklyReport.Thursday }"></label>
+                          </span>
+                    <span>
+                            <label class="col-xs-6 col-md-2">Friday</label>
+                            <label class="showarea col-xs-6 col-md-9" th:text="${weeklyReport.Friday }"></label>
+                          </span>
+                    <span>
+                            <label class="col-xs-6 col-md-2">Saturday</label>
+                            <label class="showarea col-xs-6 col-md-9" th:text="${weeklyReport.Saturday }"></label>
+                          </span>
+                    <span>
+                            <label class="col-xs-6 col-md-2">Sunday</label>
+                            <label class="showarea col-xs-6 col-md-9" th:text="${weeklyReport.Sunday }"></label>
+                          </span>
+                    <br></br>
+                    <span>
+                            <label class="col-xs-6 col-md-2">Summary</label>
+                            <label class="showarea col-xs-6 col-md-9" th:text="${weeklyReport.Summary }"></label>
+                          </span>
+                   <div class="form-group">
+                       <label>Student Signature : </label>
+                       <label th:text="${verify}"></label>
+                       </div>
+                            <form method="POST" action="/Ind/remark" >
+                                <h3>Remarks</h3>
+                                <textarea class="form-control" th:required="required" name="remark" rows="3"></textarea>
+                                <div class="form-group">
+                                    <label>Enter your key password to put your digital Signature</label>
+                                    <div class="input-group input-group-sm">
+                                                        <span class="input-group-addon">
+                                                            <span class="fa fa-key"></span>
+                                                        </span>
+                                        <input type="password" class="form-control" name="KeyPassword"
+                                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="code123"
+                                               placeholder="your key Password!" th:required="required"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Enter your key word to verify your digital Signature</label>
+                                    <div class="input-group input-group-sm">
+                                                        <span class="input-group-addon">
+                                                            <span class="fa fa-edit"></span>
+                                                        </span>
+                                        <input type="password" class="form-control" name="KeyWord"
+                                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="code13"
+                                               placeholder="your key word!" th:required="required"/>
+                                    </div>
+                                </div>
+                                <div th:if="${not #lists.isEmpty(warning)}" th:text="${warning}">
+                                </div>
+                                <div class="col-xs-offset-1 col-sm-offset-2 col-md-offset-2 col-xs-3 col-sm-3 col-md-3">
+                                    <button type="submit" name="action" th:value="${weeklyReport.Id}"
+                                            class="btn btn-info">
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="Fragments/footer :: footer">
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script type="text/javascript"
+        src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+</html>
